@@ -1,7 +1,7 @@
 [package]
-name = "gfsc"
+name = "gourdcrab"
 version = "0.1.0"
-authors = ["tlgk"]
+authors = ["TLGKien"]
 edition = "2018"
 
 [lib]

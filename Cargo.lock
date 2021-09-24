@@ -139,7 +139,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "gfsc"
+name = "gourdcrab"
 version = "0.1.0"
 dependencies = [
  "near-sdk",
