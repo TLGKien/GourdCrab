@@ -143,18 +143,18 @@ Each account on NEAR can have at most one contract deployed to it. If you've alr
 Step 2: build and testing
 ---------------------------------
 
-    `./build.sh`
-    `./test.sh`
+    ./build.sh
+    ./test.sh
 
 
 Step 3: deploy!
 ---------------
 
-    `./deploy.sh`
+    ./deploy.sh
 
 Step 4: Call contract from Near CLI
 
-    `./call.sh <METHOD_NAME> <ARGs>`
+    ./call.sh <METHOD_NAME> <ARGs>
 
 Troubleshooting
 ===============
