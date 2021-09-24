@@ -23,9 +23,6 @@ pub struct BetInfo {
     pub stag: u128,
 }
 
-
-
-
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct GourdCrab {
@@ -100,29 +97,59 @@ impl GourdCrab {
     }
 
     pub fn cancel_betting(&mut self){
-
+        let account_id = env::signer_account_id();
+        let mut balance = self.accounts.get(&account_id).unwrap_or(0);
+        let _tmp = self.bets.get(&account_id).unwrap();
+        
+        balance = balance + (_tmp.fish + _tmp.prawn + _tmp.crab + _tmp.rooster + _tmp.gourd + _tmp.stag) * self.bet_level;
+        self.accounts.insert(&account_id,&balance);
+        self.bets.remove(&account_id);
     }
 
     pub fn rolling(&mut self)->[u128;6]{
         // rolling
         let _rand1: u8 = *env::random_seed().get(0).unwrap() % 6;
-        let _rand2: u8 = *env::random_seed().get(0).unwrap() % 6;
-        let _rand3: u8 = *env::random_seed().get(0).unwrap() % 6;
+        let _rand2: u8 = *env::random_seed().get(1).unwrap() % 6;
+        let _rand3: u8 = *env::random_seed().get(2).unwrap() % 6;
 
         let mut result: [u128;6] = [0,0,0,0,0,0];
         result[_rand1 as usize] += 1;
         result[_rand2 as usize] += 1;
         result[_rand3 as usize] += 1;
 
-        for i in result{
-            println!("The result of rolling: {}", i);
-        }
         
         // check the result
         for account_id in self.bets.keys() {
             let mut balance = self.accounts.get(&account_id).unwrap_or(0);
             let _tmp = self.bets.get(&account_id).unwrap();
-            let profit :u128 = result[0] as u128 * _tmp.fish + result[1] as u128 *_tmp.prawn + result[2] as u128 * _tmp.crab + result[3] as u128 * _tmp.rooster + result[4] as u128 * _tmp.gourd + result[5] as u128 * _tmp.stag;
+            // let profit :u128 = result[0] as u128 * _tmp.fish + result[1] as u128 *_tmp.prawn + result[2] as u128 * _tmp.crab + result[3] as u128 * _tmp.rooster + result[4] as u128 * _tmp.gourd + result[5] as u128 * _tmp.stag;
+
+            let mut profit : u128 = 0;
+            if result[0] * _tmp.fish != 0{
+                profit += result[0] * _tmp.fish;
+                profit += 1;
+            }
+            if result[1] *_tmp.prawn != 0{
+                profit += result[1] *_tmp.prawn;
+                profit += 1;
+            }
+            if result[2] * _tmp.crab != 0{
+                profit += result[2] * _tmp.crab;
+                profit += 1;
+            }
+            if result[3] * _tmp.rooster != 0{
+                profit += result[3] * _tmp.rooster;
+                profit += 1;
+            }
+            if result[4] * _tmp.gourd != 0{
+                profit += result[4] * _tmp.gourd;
+                profit += 1;
+            }
+            if result[5] * _tmp.stag != 0{
+                profit += result[5] * _tmp.stag;
+                profit += 1;
+            }
+            
             balance = balance + profit * self.bet_level;
 
             self.accounts.insert(&account_id, &balance);            
@@ -136,11 +163,13 @@ impl GourdCrab {
         self.accounts.get(&account_id).unwrap_or(0)
     }
 
+    pub fn get_bet(&self, account_id: AccountId) -> [u128;6] {
+        let bet = self.bets.get(&account_id).unwrap();
+        let betarr : [u128;6] = [bet.fish,bet.prawn,bet.crab, bet.rooster, bet.gourd, bet.stag];
+        betarr
+    }
+
 }
-
-
-
-
 
 
 #[cfg(test)]
