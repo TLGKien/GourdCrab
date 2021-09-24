@@ -135,7 +135,7 @@ Each account on NEAR can have at most one contract deployed to it. If you've alr
 
 2. Create a subaccount (replace `YOUR-NAME` below with your actual account name):
 
-      `near create-account NCD-GroupA-Demo.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet`
+      `near create-account subacc.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet`
 
 3. Export account to variable
       `export ACCOUNT_ID=<YOUR_ACCOUNT_ID>`
@@ -156,6 +156,35 @@ Step 4: Call contract from Near CLI
 -----------------------------------
 
     ./call.sh <METHOD_NAME> <ARGs>
+
+For example, both `account_id1 = demo10.tlgk.testnet` and `account_id2 = demo10.kiendemo.testnet` want to bet. You will get the following script 
+
+First, init contract:
+
+    ./call.sh new '{"owner_id":"demo10.tlgk.testnet", "bet_level":"1000000000000000000000000"}'
+
+deposit some money and place a bet. for instance, account_id1 want place 1 crab and 2 rooster, account_id2 want place 1 fish and 1 praw
+
+    ./call.sh deposit '{}' --amount 40
+    ./call.sh betting '{"num_fish": 0, "num_prawn": 0, "num_crab": 1,  "num_rooster": 2, "num_gourd": 0, "num_stag": 0}'
+
+    ./call2.sh deposit '{}' --amount 40
+    ./call2.sh betting '{"num_fish": 1, "num_prawn": 1, "num_crab": 0,  "num_rooster": 0,  "num_gourd": 0, "num_stag":0}'
+
+You can check Bets by scripts:
+
+    ./call.sh get_bet '{"account_id":"demo10.kiendemo.testnet"}'
+    ./call.sh get_bet '{"account_id":"demo10.kiendemo.testnet"}'
+
+Now, rolling dices
+
+    ./call.sh rolling '{}'
+
+You can check balance.
+    ./call.sh get_balance '{"account_id":"demo10.tlgk.testnet"}'
+    ./call.sh get_balance '{"account_id":"demo10.kiendemo.testnet"}'
+
+
 
 Troubleshooting
 ===============
