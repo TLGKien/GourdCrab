@@ -153,6 +153,7 @@ Step 3: deploy!
     ./deploy.sh
 
 Step 4: Call contract from Near CLI
+-----------------------------------
 
     ./call.sh <METHOD_NAME> <ARGs>
 
