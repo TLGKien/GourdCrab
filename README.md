@@ -1,12 +1,8 @@
-NCD-Demo
-==================
+Near Cetificate Devoloper - Demo
+================================
 
 Vietnamese gambling game: 
 Gourd-Fish-Shrimp-Crab On NEAR
-====================
-
-## Why dice
-
 
 ## How to play
 
@@ -19,6 +15,7 @@ For instance, if one were to place $3 on fish, and the dealer rolls 1 fish, 1 cr
 
 About Contract
 ====================
+
 It's need to be mentioned that it is a pure dapp project, which means there is no centralized backend nor data server, all persistent information is stored and mananged on NEAR chain by a contract.
 
 ## Contract Structure
@@ -105,14 +102,14 @@ Exploring The Code
 
 The "contract" code lives in the `/src` folder. See the README there for more info.
 
-Deploy
-======
+Preparation
+===========
 
 Every smart contract in NEAR has its [own associated account][NEAR accounts]. When you run `yarn dev`, your smart contract gets deployed to the live NEAR TestNet with a throwaway account. When you're ready to make it permanent, here's how.
 
 
-Step 0: Install near-cli (optional)
--------------------------------------
+Install near-cli (optional)
+---------------------------
 
 [near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `yarn install`, but for best ergonomics you may want to install it globally:
 
@@ -124,7 +121,9 @@ Ensure that it's installed with `near --version` (or `npx near --version`)
 
 How to run
 ==========
+
 After you clone the project, go to the project folder
+
 Step 1: Login
 -------------
 
